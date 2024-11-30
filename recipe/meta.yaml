@@ -6,20 +6,20 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 8e15bbb6ad3297796eeb0e725e25bc91474d5eaf3e3563b0da56fe9254be44b7
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.6
+    - python {{ python_min }}
     - pip
   run:
-    - python >=3.6
+    - python >={{ python_min }}
     - xarray
     - dask
     - numpy
@@ -32,6 +32,7 @@ test:
     - xinvert
   requires:
     - pip
+    - python {{ python_min }}
   commands:
     - pip check
 
